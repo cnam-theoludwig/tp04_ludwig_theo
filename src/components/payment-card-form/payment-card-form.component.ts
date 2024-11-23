@@ -12,6 +12,7 @@ import { MaxInputCharactersDirective } from "../../directives/max-input-characte
 import { SelectDirective } from "../../directives/select/select.directive"
 import { PaymentCard } from "../../models/payment-card"
 import { PaymentCardService } from "../../services/payment-card.service"
+import { PaymentCardNumberCodeDirective } from "../../directives/payment-card-number-code/payment-card-number-code.directive"
 
 @Component({
   selector: "app-payment-card-form",
@@ -22,6 +23,7 @@ import { PaymentCardService } from "../../services/payment-card.service"
     LabelDirective,
     SelectDirective,
     MaxInputCharactersDirective,
+    PaymentCardNumberCodeDirective,
     ReactiveFormsModule,
   ],
   templateUrl: "./payment-card-form.component.html",
@@ -36,16 +38,16 @@ export class PaymentCardFormComponent {
   ) {
     this.paymentCardForm = this.formBuilder.group({
       holderName: ["", Validators.required],
-      numberCode: ["", [Validators.required, Validators.pattern(/^\d{16}$/)]],
+      numberCode: [
+        "",
+        [Validators.required, Validators.pattern(/^\d{4}(?: \d{4}){3}$/)],
+      ],
       ccv: ["", [Validators.required, Validators.pattern(/^\d{3}$/)]],
       expirationMonth: [
         "",
         [Validators.required, Validators.min(1), Validators.max(12)],
       ],
-      expirationYear: [
-        "",
-        [Validators.required, Validators.pattern(/^\d{4}$/)],
-      ],
+      expirationYear: ["", [Validators.required]],
     })
   }
 
