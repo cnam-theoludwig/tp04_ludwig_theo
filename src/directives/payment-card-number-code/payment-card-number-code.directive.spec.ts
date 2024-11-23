@@ -1,8 +1,15 @@
-import { PaymentCardNumberCodeDirective } from './payment-card-number-code.directive';
+import { PaymentCardNumberCodeDirective } from "./payment-card-number-code.directive"
+import { ElementRef } from "@angular/core"
 
-describe('PaymentCardNumberCodeDirective', () => {
-  it('should create an instance', () => {
-    const directive = new PaymentCardNumberCodeDirective();
-    expect(directive).toBeTruthy();
-  });
-});
+class MockElementRef extends ElementRef {
+  public constructor() {
+    super(null)
+  }
+}
+
+describe("PaymentCardNumberCodeDirective", () => {
+  it("should create an instance", () => {
+    const directive = new PaymentCardNumberCodeDirective(new MockElementRef())
+    expect(directive).toBeTruthy()
+  })
+})
