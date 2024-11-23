@@ -9,10 +9,9 @@ import { ButtonDirective } from "../../directives/button/button.directive"
 import { InputDirective } from "../../directives/input/input.directive"
 import { LabelDirective } from "../../directives/label/label.directive"
 import { MaxInputCharactersDirective } from "../../directives/max-input-characters/max-input-characters.directive"
-import { SelectDirective } from "../../directives/select/select.directive"
-import { PaymentCard } from "../../models/payment-card"
-import { PaymentCardService } from "../../services/payment-card.service"
 import { PaymentCardNumberCodeDirective } from "../../directives/payment-card-number-code/payment-card-number-code.directive"
+import { hasPaymentCardExpired, PaymentCard } from "../../models/payment-card"
+import { PaymentCardService } from "../../services/payment-card.service"
 
 @Component({
   selector: "app-payment-card-form",
@@ -21,7 +20,6 @@ import { PaymentCardNumberCodeDirective } from "../../directives/payment-card-nu
     ButtonDirective,
     InputDirective,
     LabelDirective,
-    SelectDirective,
     MaxInputCharactersDirective,
     PaymentCardNumberCodeDirective,
     ReactiveFormsModule,
@@ -36,19 +34,42 @@ export class PaymentCardFormComponent {
     private readonly paymentCardService: PaymentCardService,
     private readonly formBuilder: FormBuilder,
   ) {
-    this.paymentCardForm = this.formBuilder.group({
-      holderName: ["", Validators.required],
-      numberCode: [
-        "",
-        [Validators.required, Validators.pattern(/^\d{4}(?: \d{4}){3}$/)],
-      ],
-      ccv: ["", [Validators.required, Validators.pattern(/^\d{3}$/)]],
-      expirationMonth: [
-        "",
-        [Validators.required, Validators.min(1), Validators.max(12)],
-      ],
-      expirationYear: ["", [Validators.required]],
-    })
+    this.paymentCardForm = this.formBuilder.group(
+      {
+        holderName: ["", Validators.required],
+        numberCode: [
+          "",
+          [Validators.required, Validators.pattern(/^\d{4}(?: \d{4}){3}$/)],
+        ],
+        ccv: ["", [Validators.required, Validators.pattern(/^\d{3}$/)]],
+        expirationMonth: [
+          "",
+          [Validators.required, Validators.min(1), Validators.max(12)],
+        ],
+        expirationYear: ["", [Validators.required]],
+      },
+      {
+        validators: (formGroup) => {
+          const expirationMonthControl = formGroup.get("expirationMonth")
+          const expirationYearControl = formGroup.get("expirationYear")
+          if (
+            expirationMonthControl === null ||
+            expirationYearControl === null ||
+            !expirationYearControl.valid ||
+            !expirationMonthControl.valid
+          ) {
+            return null
+          }
+          const expirationYear = expirationYearControl.value
+          const expirationMonth = expirationMonthControl.value
+          const expired = hasPaymentCardExpired({
+            expirationMonth,
+            expirationYear,
+          })
+          return expired ? { cardExpired: true } : null
+        },
+      },
+    )
   }
 
   public onSubmit(): void {

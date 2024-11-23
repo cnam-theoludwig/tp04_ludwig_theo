@@ -100,6 +100,19 @@
       <button appButton type="submit" [disabled]="!paymentCardForm.valid">
         Ajouter
       </button>
+
+      @if (
+        paymentCardForm.errors?.cardExpired &&
+        paymentCardForm.controls.expirationYear?.dirty
+      ) {
+        <p class="error-message">La carte bancaire est expirée.</p>
+      } @else if (
+        !paymentCardForm.valid && paymentCardForm.controls.expirationYear?.dirty
+      ) {
+        <p class="error-message">
+          Veuillez remplir tous les champs correctement.
+        </p>
+      }
     </div>
   </form>
 </section>

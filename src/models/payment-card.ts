@@ -25,6 +25,18 @@ export const getPaymentCardCompany = (
   )
 }
 
+export const hasPaymentCardExpired = (
+  input: Pick<PaymentCard, "expirationMonth" | "expirationYear">,
+): boolean => {
+  const { expirationMonth, expirationYear } = input
+  const currentDate = new Date()
+  return (
+    expirationYear < currentDate.getFullYear() ||
+    (expirationYear === currentDate.getFullYear() &&
+      expirationMonth < currentDate.getMonth() + 1)
+  )
+}
+
 export const PAYMENT_CARD_MOCK: PaymentCard = {
   holderName: "Jean Dupont",
   numberCode: "1234567812345678",
@@ -46,8 +58,15 @@ export const PAYMENT_CARD_MOCK_3: PaymentCard = {
   expirationYear: new Date().getFullYear() + 2,
 }
 
+const PAYMENT_CARD_MOCK_4: PaymentCard = {
+  ...PAYMENT_CARD_MOCK,
+  expirationMonth: 8,
+  expirationYear: new Date().getFullYear() - 2,
+}
+
 export const PAYMENT_CARDS_MOCK = [
   PAYMENT_CARD_MOCK,
   PAYMENT_CARD_MOCK_2,
   PAYMENT_CARD_MOCK_3,
+  PAYMENT_CARD_MOCK_4,
 ]
