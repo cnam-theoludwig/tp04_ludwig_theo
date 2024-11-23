@@ -101,14 +101,9 @@
         Ajouter
       </button>
 
-      @if (
-        paymentCardForm.errors?.cardExpired &&
-        paymentCardForm.controls.expirationYear?.dirty
-      ) {
+      @if (paymentCardForm.errors?.cardExpired && !paymentCardForm.pristine) {
         <p class="error-message">La carte bancaire est expirée.</p>
-      } @else if (
-        !paymentCardForm.valid && paymentCardForm.controls.expirationYear?.dirty
-      ) {
+      } @else if (!paymentCardForm.valid && !paymentCardForm.pristine) {
         <p class="error-message">
           Veuillez remplir tous les champs correctement.
         </p>
