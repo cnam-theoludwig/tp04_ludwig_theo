@@ -1,0 +1,100 @@
+@import "@fontsource/montserrat/400.css";
+@import "@fontsource/montserrat/500.css";
+@import "@fontsource/montserrat/600.css";
+@import "@fontsource/montserrat/700.css";
+@import "@fontsource/montserrat/800.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    min-width: 0;
+  }
+
+  b,
+  strong {
+    @apply font-semibold;
+  }
+
+  i,
+  em {
+    @apply italic;
+  }
+
+  u {
+    @apply underline;
+  }
+
+  s {
+    @apply line-through;
+  }
+
+  abbr[title] {
+    @apply underline decoration-dotted underline-offset-2;
+  }
+
+  q,
+  blockquote {
+    @apply italic tracking-wider;
+  }
+  blockquote {
+    @apply border-gray-lighter border-l-4 pl-3 italic;
+  }
+
+  kbd {
+    @apply bg-gray-lighter rounded-md px-2;
+  }
+
+  mark {
+    @apply bg-highlight rounded-md px-2;
+  }
+
+  ol {
+    @apply list-inside list-decimal;
+  }
+
+  ul {
+    @apply list-inside list-disc;
+  }
+
+  dfn {
+    @apply font-semibold italic;
+    cursor: help;
+  }
+
+  h1 {
+    @apply text-3xl font-semibold;
+  }
+  h2 {
+    @apply text-2xl font-semibold;
+  }
+  h3 {
+    @apply text-xl font-semibold;
+  }
+  h4,
+  h5,
+  h6 {
+    @apply text-lg font-semibold;
+  }
+  p {
+    @apply break-words text-base;
+  }
+
+  a {
+    @apply text-primary inline-flex items-center gap-1 font-semibold hover:underline focus:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+  }
+
+  hr {
+    margin: 1rem 0;
+    color: inherit;
+    border: 0;
+    border-top: 1px solid;
+    opacity: 0.25;
+  }
+}
+
+body {
+  @apply bg-white font-sans text-black;
+}
