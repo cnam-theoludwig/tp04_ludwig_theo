@@ -18,19 +18,19 @@ import { PaymentCardService } from "../../services/payment-card.service"
 })
 export class PaymentCardListComponent {
   @Input()
-  public selectedIndex: number | null = null
+  public selectedId: PaymentCard["id"] | null = null
 
   @Output()
-  public handleSelected = new EventEmitter<number | null>()
+  public handleSelected = new EventEmitter<PaymentCard["id"] | null>()
 
   public constructor(private readonly paymentCardService: PaymentCardService) {}
 
-  public selectPaymentCard(index: number): void {
-    if (index === this.selectedIndex) {
+  public selectPaymentCard(id: PaymentCard["id"]): void {
+    if (id === this.selectedId) {
       this.handleSelected.emit(null)
       return
     }
-    this.handleSelected.emit(index)
+    this.handleSelected.emit(id)
   }
 
   public get paymentCards(): PaymentCard[] {
@@ -48,8 +48,8 @@ export class PaymentCardListComponent {
     return hasPaymentCardExpired(input)
   }
 
-  public deletePaymentCard(event: Event, indexToDelete: number): void {
+  public deletePaymentCard(event: Event, id: PaymentCard["id"]): void {
     event.stopPropagation()
-    this.paymentCardService.deletePaymentCard(indexToDelete)
+    this.paymentCardService.deletePaymentCard(id)
   }
 }

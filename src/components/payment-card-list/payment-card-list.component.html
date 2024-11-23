@@ -1,11 +1,11 @@
 <ul class="flex flex-wrap gap-6 list-none my-6">
-  @for (paymentCard of paymentCards; track $index) {
+  @for (paymentCard of paymentCards; track paymentCard.id) {
     <li class="w-80">
       <button
         type="button"
-        (click)="selectPaymentCard($index)"
+        (click)="selectPaymentCard(paymentCard.id)"
         class="text-left w-full rounded-lg border-2 px-4 py-2 shadow-md transition-transform duration-500 hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50"
-        [class.border-blue-500]="$index === selectedIndex"
+        [class.border-blue-500]="paymentCard.id === selectedId"
         [disabled]="hasPaymentCardExpired(paymentCard)"
       >
         <img
@@ -30,7 +30,7 @@
             type="button"
             variant="error-outline"
             size="small"
-            (click)="deletePaymentCard($event, $index)"
+            (click)="deletePaymentCard($event, paymentCard.id)"
           >
             Supprimer
           </button>

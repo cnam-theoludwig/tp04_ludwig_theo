@@ -21,7 +21,7 @@
       <section class="flex-1 m-6">
         <h2>Sélectionner une carte bancaire</h2>
         <app-payment-card-list
-          [selectedIndex]="selectedPaymentCardIndex"
+          [selectedId]="selectedPaymentCardId"
           (handleSelected)="selectPaymentCard($event)"
         />
       </section>
@@ -35,7 +35,7 @@
       appButton
       type="button"
       size="large"
-      [disabled]="selectedPaymentCardIndex == null"
+      [disabled]="selectedPaymentCardId == null"
     >
       Payer
     </button>

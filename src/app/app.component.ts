@@ -21,12 +21,12 @@ import { PaymentCardService } from "../services/payment-card.service"
   styleUrl: "./app.component.css",
 })
 export class AppComponent {
-  public selectedPaymentCardIndex: number | null = null
+  public selectedPaymentCardId: PaymentCard["id"] | null = null
 
   public constructor(private readonly paymentCardService: PaymentCardService) {}
 
-  public selectPaymentCard(index: number | null): void {
-    this.selectedPaymentCardIndex = index
+  public selectPaymentCard(id: PaymentCard["id"] | null): void {
+    this.selectedPaymentCardId = id
   }
 
   public get paymentCards(): PaymentCard[] {

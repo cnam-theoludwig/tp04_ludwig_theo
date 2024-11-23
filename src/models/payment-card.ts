@@ -1,4 +1,5 @@
 export interface PaymentCard {
+  id: string
   holderName: string
   numberCode: string
   ccv: string
@@ -38,6 +39,7 @@ export const hasPaymentCardExpired = (
 }
 
 export const PAYMENT_CARD_MOCK: PaymentCard = {
+  id: crypto.randomUUID(),
   holderName: "Jean Dupont",
   numberCode: "1234567812345678",
   ccv: "123",
@@ -47,12 +49,14 @@ export const PAYMENT_CARD_MOCK: PaymentCard = {
 
 export const PAYMENT_CARD_MOCK_2: PaymentCard = {
   ...PAYMENT_CARD_MOCK,
+  id: crypto.randomUUID(),
   expirationMonth: 2,
   numberCode: "4234567812349876",
 }
 
 export const PAYMENT_CARD_MOCK_3: PaymentCard = {
   ...PAYMENT_CARD_MOCK,
+  id: crypto.randomUUID(),
   numberCode: "5234567812341234",
   expirationMonth: 5,
   expirationYear: new Date().getFullYear() + 2,
@@ -60,6 +64,7 @@ export const PAYMENT_CARD_MOCK_3: PaymentCard = {
 
 const PAYMENT_CARD_MOCK_4: PaymentCard = {
   ...PAYMENT_CARD_MOCK,
+  id: crypto.randomUUID(),
   expirationMonth: 8,
   expirationYear: new Date().getFullYear() - 2,
 }

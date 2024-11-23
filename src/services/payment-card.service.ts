@@ -14,14 +14,20 @@ export class PaymentCardService {
 
   public addPaymentCard(card: PaymentCard): void {
     this._paymentCards.update((cards) => {
-      return [...cards, card]
+      return [
+        ...cards,
+        {
+          ...card,
+          id: crypto.randomUUID(),
+        },
+      ]
     })
   }
 
-  public deletePaymentCard(indexToDelete: number): void {
+  public deletePaymentCard(id: PaymentCard["id"]): void {
     this._paymentCards.update((cards) => {
-      return cards.filter((_, index) => {
-        return index !== indexToDelete
+      return cards.filter((paymentCard) => {
+        return paymentCard.id !== id
       })
     })
   }
