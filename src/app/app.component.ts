@@ -1,4 +1,4 @@
-import { Component } from "@angular/core"
+import { Component, effect } from "@angular/core"
 import { FooterComponent } from "../components/footer/footer.component"
 import { HeaderComponent } from "../components/header/header.component"
 import { PaymentCardFormComponent } from "../components/payment-card-form/payment-card-form.component"
@@ -23,7 +23,18 @@ import { PaymentCardService } from "../services/payment-card.service"
 export class AppComponent {
   public selectedPaymentCardId: PaymentCard["id"] | null = null
 
-  public constructor(private readonly paymentCardService: PaymentCardService) {}
+  public constructor(private readonly paymentCardService: PaymentCardService) {
+    effect(() => {
+      const paymentCard = this.paymentCardService.paymentCards.find(
+        (paymentCard) => {
+          return paymentCard.id === this.selectedPaymentCardId
+        },
+      )
+      if (paymentCard == null) {
+        this.selectedPaymentCardId = null
+      }
+    })
+  }
 
   public selectPaymentCard(id: PaymentCard["id"] | null): void {
     this.selectedPaymentCardId = id
