@@ -1,0 +1,7 @@
+.input-container {
+  @apply my-6 mx-0;
+}
+
+.error-message {
+  @apply text-error mx-1 mt-2 text-sm font-medium;
+}

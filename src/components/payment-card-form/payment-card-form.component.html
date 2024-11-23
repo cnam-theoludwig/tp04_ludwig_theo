@@ -1,0 +1,104 @@
+<section class="my-6">
+  <h2>Carte bancaire</h2>
+  <form [formGroup]="paymentCardForm" (ngSubmit)="onSubmit()" class="max-w-80">
+    <div class="input-container">
+      <label appLabel for="holderName">Nom du titulaire</label>
+      <input
+        appInput
+        formControlName="holderName"
+        id="holderName"
+        name="holderName"
+        required
+        [state]="
+          paymentCardForm.controls.holderName?.valid ||
+          !paymentCardForm.controls.holderName?.dirty
+            ? 'idle'
+            : 'error'
+        "
+      />
+    </div>
+
+    <div class="input-container">
+      <label appLabel for="numberCode">Numéro</label>
+      <input
+        appInput
+        formControlName="numberCode"
+        id="numberCode"
+        name="numberCode"
+        [appMaxInputCharacters]="16"
+        required
+        [state]="
+          paymentCardForm.controls.numberCode?.valid ||
+          !paymentCardForm.controls.numberCode?.dirty
+            ? 'idle'
+            : 'error'
+        "
+      />
+    </div>
+
+    <div class="input-container">
+      <label appLabel for="ccv">CCV</label>
+      <input
+        appInput
+        formControlName="ccv"
+        id="ccv"
+        name="ccv"
+        [appMaxInputCharacters]="3"
+        required
+        [state]="
+          paymentCardForm.controls.ccv?.valid ||
+          !paymentCardForm.controls.ccv?.dirty
+            ? 'idle'
+            : 'error'
+        "
+      />
+    </div>
+
+    <div class="input-container grid grid-cols-2 gap-4">
+      <div>
+        <label appLabel for="expirationMonth">Mois</label>
+        <input
+          appInput
+          formControlName="expirationMonth"
+          id="expirationMonth"
+          name="expirationMonth"
+          type="number"
+          step="1"
+          max="12"
+          min="1"
+          required
+          [state]="
+            paymentCardForm.controls.expirationMonth?.valid ||
+            !paymentCardForm.controls.expirationMonth?.dirty
+              ? 'idle'
+              : 'error'
+          "
+        />
+      </div>
+      <div>
+        <label appLabel for="expirationYear">Année</label>
+        <input
+          appInput
+          formControlName="expirationYear"
+          id="expirationYear"
+          name="expirationYear"
+          type="number"
+          step="1"
+          required
+          [state]="
+            paymentCardForm.controls.expirationYear?.valid ||
+            !paymentCardForm.controls.expirationYear?.dirty
+              ? 'idle'
+              : 'error'
+          "
+        />
+      </div>
+    </div>
+
+    <div class="text-center my-6">
+      <button appButton type="submit" [disabled]="!paymentCardForm.valid">
+        Ajouter
+      </button>
+    </div>
+  </form>
+</section>
