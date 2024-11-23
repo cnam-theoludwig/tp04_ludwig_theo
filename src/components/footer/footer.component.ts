@@ -9,6 +9,6 @@ import { GIT_REPO_LINK, VERSION } from "../../utils/constants"
   styleUrl: "./footer.component.css",
 })
 export class FooterComponent {
-  version = VERSION
-  gitRepoLink = GIT_REPO_LINK
+  public version = VERSION
+  public gitRepoLink = GIT_REPO_LINK
 }

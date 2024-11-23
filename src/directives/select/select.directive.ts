@@ -14,7 +14,7 @@ const selectVariants = cva({
   },
 })
 export class SelectDirective {
-  computedClass = computed(() => {
+  public computedClass = computed(() => {
     return classNames(selectVariants())
   })
 }

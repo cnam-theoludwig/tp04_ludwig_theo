@@ -14,7 +14,7 @@ const labelVariants = cva({
   },
 })
 export class LabelDirective {
-  computedClass = computed(() => {
+  public computedClass = computed(() => {
     return classNames(labelVariants())
   })
 }

@@ -26,9 +26,9 @@ type InputVariants = VariantProps<typeof inputVariants>
   },
 })
 export class InputDirective {
-  state = input<InputVariants["state"]>()
+  public state = input<InputVariants["state"]>()
 
-  computedClass = computed(() => {
+  public computedClass = computed(() => {
     return classNames(
       inputVariants({
         state: this.state(),

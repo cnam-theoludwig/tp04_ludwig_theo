@@ -1,5 +1,6 @@
 import { computed, Directive, input } from "@angular/core"
-import { cva, type VariantProps } from "cva"
+import { cva } from "cva"
+import type { VariantProps } from "cva"
 import { classNames } from "../../utils/classNames"
 
 const buttonVariants = cva({
@@ -40,10 +41,10 @@ type ButtonVariants = VariantProps<typeof buttonVariants>
   },
 })
 export class ButtonDirective {
-  size = input<ButtonVariants["size"]>()
-  variant = input<ButtonVariants["variant"]>()
+  public size = input<ButtonVariants["size"]>()
+  public variant = input<ButtonVariants["variant"]>()
 
-  computedClass = computed(() => {
+  public computedClass = computed(() => {
     return classNames(
       buttonVariants({ variant: this.variant(), size: this.size() }),
     )

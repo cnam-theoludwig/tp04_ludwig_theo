@@ -22,6 +22,7 @@ export default typescriptESLint.config(
     rules: {
       "@typescript-eslint/unbound-method": "off",
       "@typescript-eslint/consistent-type-imports": "off",
+      "@typescript-eslint/explicit-member-accessibility": "error",
     },
   },
   {
