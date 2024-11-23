@@ -1,32 +1,40 @@
-<ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 list-none my-6">
+<ul class="flex flex-wrap gap-6 list-none my-6">
   @for (paymentCard of paymentCards; track $index) {
-    <li class="rounded-lg border border-gray-200 px-4 shadow-md">
-      <img
-        [src]="getPaymentCardImage(paymentCard.numberCode)"
-        alt="Payment Card Company"
-        class="h-10 my-3"
-      />
-      <h3 class="my-1 text-lg font-medium text-gray-800">
-        {{ paymentCard.holderName }}
-      </h3>
-      <p class="my-1 text-sm text-gray-600">
-        {{ paymentCard.numberCode | paymentCardMask }}
-      </p>
-      <p class="my-1 text-sm text-gray-600">
-        Expire : {{ paymentCard.expirationMonth | zeroPad }} /
-        {{ paymentCard.expirationYear }}
-      </p>
+    <li class="w-80">
+      <button
+        type="button"
+        (click)="selectPaymentCard($index)"
+        class="text-left w-full rounded-lg border-2 px-4 py-2 shadow-md transition-transform duration-500 hover:scale-105"
+        [class.border-blue-500]="$index === selectedIndex"
+      >
+        <img
+          [src]="getPaymentCardImage(paymentCard.numberCode)"
+          alt="Payment Card Company"
+          class="h-10 my-3"
+        />
+        <h3 class="my-1 text-lg font-medium text-gray-800">
+          {{ paymentCard.holderName }}
+        </h3>
+        <p class="my-1 text-sm text-gray-600">
+          {{ paymentCard.numberCode | paymentCardMask }}
+        </p>
+        <p class="my-1 text-sm text-gray-600">
+          Expire : {{ paymentCard.expirationMonth | zeroPad }} /
+          {{ paymentCard.expirationYear }}
+        </p>
 
-      <div class="my-3 flex justify-center items-center">
-        <button
-          appButton
-          variant="error-outline"
-          size="small"
-          (click)="deletePaymentCard($index)"
-        >
-          Supprimer
-        </button>
-      </div>
+        <div class="my-3 flex justify-center items-center">
+          <button
+            appButton
+            type="button"
+            variant="error-outline"
+            size="small"
+            (click)="deletePaymentCard($event, $index)"
+          >
+            Supprimer
+          </button>
+        </div>
+      </button>
     </li>
   }
 </ul>

@@ -1,13 +1,45 @@
 <app-header />
 
 <main
-  class="md:mx-auto md:max-w-4xl lg:max-w-7xl px-6 min-h-[calc(100vh-127px)]"
+  class="md:mx-auto md:max-w-4xl lg:max-w-[1680px] px-6 min-h-[calc(100vh-127px)]"
 >
-  <app-payment-card-form />
+  <section
+    class="flex flex-col md:flex-row sm:gap-6"
+    [class.justify-center]="paymentCards.length === 0"
+  >
+    <section class="w-full md:w-96 shrink-0">
+      <app-payment-card-form />
+    </section>
+
+    @if (paymentCards.length > 0) {
+      <hr class="md:hidden border-black/20" aria-hidden="true" />
+      <div
+        class="hidden md:block border-black/20 border-l md:w-px mt-5"
+        aria-hidden="true"
+      ></div>
+
+      <section class="flex-1 m-6">
+        <h2>Sélectionner une carte bancaire</h2>
+        <app-payment-card-list
+          [selectedIndex]="selectedPaymentCardIndex"
+          (handleSelected)="selectPaymentCard($event)"
+        />
+      </section>
+    }
+  </section>
 
   <hr />
 
-  <app-payment-card-list />
+  <section class="my-6 text-center">
+    <button
+      appButton
+      type="button"
+      size="large"
+      [disabled]="selectedPaymentCardIndex == null"
+    >
+      Payer
+    </button>
+  </section>
 </main>
 
 <app-footer />

@@ -38,5 +38,13 @@ export default typescriptESLint.config(
       ...angular.configs.templateRecommended,
       ...angular.configs.templateAccessibility,
     ],
+    rules: {
+      "@angular-eslint/template/eqeqeq": [
+        "error",
+        {
+          allowNullOrUndefined: true,
+        },
+      ],
+    },
   },
 )
